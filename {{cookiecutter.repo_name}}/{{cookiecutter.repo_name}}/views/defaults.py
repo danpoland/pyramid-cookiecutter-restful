@@ -19,7 +19,7 @@ def notfound_view(request):
 def exception_view(context, request):
     log.error("The error was: %s" % context, exc_info=context)
 
-    if settings.LOG_LEVEL == 'DEBUG':
+    if settings.LOG_LEVEL == logging.DEBUG:
         return Response(status=500, json={'internal_server_error': str(context)})
 
     return Response(status=500)
