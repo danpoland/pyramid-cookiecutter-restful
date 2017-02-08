@@ -15,11 +15,6 @@ def test_it(cookies, venv, capfd):
     assert result.project.basename == 'myapp'
 
     out, err = capfd.readouterr()
-    if WIN:
-        assert 'Scripts\\pserve' in out
-    else:
-        assert 'bin/pserve' in out
-
     cwd = result.project.strpath
 
     # this is a hook for executing scaffold tests against a specific
