@@ -1,4 +1,6 @@
 {
     "project_name": "Pyramid Restful Scaffold",
-    "repo_name": "scaffold"
+    "repo_name": "scaffold",
+    "maintainer_name": "",
+    "maintainer_email": ""
 }
