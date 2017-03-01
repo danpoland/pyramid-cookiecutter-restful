@@ -2,11 +2,14 @@ from setuptools import setup, find_packages
 
 
 requires = [
+    'alembic',
     'pyramid',
-    'pyramid_tm',
+    'pyramid-tm',
     'SQLAlchemy',
     'transaction',
-    'zope.sqlalchemy'
+    'zope.sqlalchemy',
+    'marshmallow',
+    'pyramid-restful-framework'
 ]
 
 tests_require = [
