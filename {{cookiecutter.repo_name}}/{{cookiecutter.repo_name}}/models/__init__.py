@@ -1,11 +1,10 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, engine_from_config
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import configure_mappers
 
 import zope.sqlalchemy
 
-from {{ cookiecutter.repo_name }} import settings
-
+from {{cookiecutter.repo_name}} import settings
 
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines
@@ -16,16 +15,24 @@ from .mymodel import MyModel  # flake8: noqa
 configure_mappers()
 
 
-def get_engine(**kwargs):
+def get_session():
     """
+    For when you need a db session outside the context of a request.
+    """
+    return get_session_factory(get_engine())()
+
+
+def get_engine(configs=None, **kwargs):
+    """
+    :param configs: Standard, SQLAlchemy settings, if not present, uses global database settings.
     :param kwargs: Additional kwargs to pass to sqlalchemy's create_engine function.
     :return: sqlalchemy engine.
     """
+    if configs:
+        return engine_from_config(configs)
 
-    db_settings = settings.DATABASE
-    url = '{URL_SCHEMA}://{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME}'.format(**db_settings)
-
-    return create_engine(url, connect_args=db_settings.get('OPTIONS', {}), **kwargs)
+    # the thread local config was not available.
+    return create_engine(settings.SQLALCHEMY_URL, connect_args=settings.SQLALCHEMY_CONNECT_ARGS, **kwargs)
 
 
 def get_session_factory(engine):
@@ -64,13 +71,15 @@ def includeme(config):
     """
     Initialize the model for a Pyramid app.
 
-    Activate this setup using ``config.include('{{ cookiecutter.repo_name }}.models')``.
+    Activate this setup using ``config.include('hriservice.models')``.
 
     """
+    config_settings = config.get_settings()
+
     # use pyramid_tm to hook the transaction lifecycle to the request
     config.include('pyramid_tm')
 
-    session_factory = get_session_factory(get_engine())
+    session_factory = get_session_factory(get_engine(config_settings))
     config.registry['dbsession_factory'] = session_factory
 
     # make request.dbsession available for use in Pyramid
