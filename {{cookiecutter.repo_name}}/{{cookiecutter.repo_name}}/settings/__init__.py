@@ -10,6 +10,7 @@ http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/environment.html
 
 import os
 import logging
+import pytz
 
 
 DEPLOY_ENV = os.getenv('DEPLOY_ENV')
@@ -33,6 +34,7 @@ elif DEPLOY_ENV == 'development':
 else:
     raise Exception('Invalid value for DEPLOY_ENV: {}'.format(DEPLOY_ENV))
 
+TIMEZONE = pytz.utc
 
 LOGGING = {
     'version': 1,
@@ -83,3 +85,6 @@ DATABASE = {
     'PORT': os.getenv('DB_PORT'),
     'OPTIONS': {}
 }
+
+SQLALCHEMY_URL = '{URL_SCHEMA}://{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME}'.format(**DATABASE)
+SQLALCHEMY_CONNECT_ARGS = DATABASE.get('OPTIONS', {})
