@@ -34,6 +34,17 @@ elif DEPLOY_ENV == 'development':
 else:
     raise Exception('Invalid value for DEPLOY_ENV: {}'.format(DEPLOY_ENV))
 
+
+# Pyramid settings
+PYRAMID_APP_SETTINGS = {
+    'pyramid.reload_templates': PYRAMID_RELOAD_TEMPLATES,
+    'pyramid.debug_authorization': PYRAMID_DEBUG_AUTHORIZATION,
+    'pyramid.debug_notfound': PYRAMID_DEBUG_NOTFOUND,
+    'pyramid.debug_routematch': PYRAMID_DEBUG_ROUTEMATCH,
+    'pyramid.default_locale_name': 'en',
+}
+
+
 TIMEZONE = pytz.utc
 
 LOGGING = {

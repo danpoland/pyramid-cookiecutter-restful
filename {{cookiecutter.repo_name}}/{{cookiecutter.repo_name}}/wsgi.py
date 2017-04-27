@@ -4,13 +4,12 @@ from pyramid.config import Configurator
 from pyramid.renderers import JSON
 
 from {{ cookiecutter.repo_name }} import settings
-from {{ cookiecutter.repo_name }}.utilities import settings_config_parser
 
 
 # Set up logging
 logging.config.dictConfig(settings.LOGGING)
 
-config = Configurator(settings=settings_config_parser())
+config = Configurator(settings=settings.PYRAMID_APP_SETTINGS)
 json_render = JSON()
 
 config.add_renderer(None, json_render)
