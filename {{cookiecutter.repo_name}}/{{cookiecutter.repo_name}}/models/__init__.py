@@ -4,7 +4,10 @@ from sqlalchemy.orm import configure_mappers
 
 import zope.sqlalchemy
 
-from {{cookiecutter.repo_name}} import settings
+from
+
+{{cookiecutter.repo_name}}
+import settings
 
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines
@@ -32,7 +35,9 @@ def get_engine(configs=None, **kwargs):
         return engine_from_config(configs)
 
     # the thread local config was not available.
-    return create_engine(settings.SQLALCHEMY_URL, connect_args=settings.SQLALCHEMY_CONNECT_ARGS, **kwargs)
+    return create_engine(settings.PYRAMID_APP_SETTINGS['sqlalchemy.url'],
+                         connect_args=settings.PYRAMID_APP_SETTINGS['sqlalchemy.connect_args'],
+                         **kwargs)
 
 
 def get_session_factory(engine):
