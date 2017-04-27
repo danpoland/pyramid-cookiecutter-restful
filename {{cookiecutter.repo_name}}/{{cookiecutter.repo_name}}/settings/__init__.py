@@ -47,6 +47,15 @@ PYRAMID_APP_SETTINGS = {
 
 TIMEZONE = pytz.utc
 
+
+def get_now():
+    """
+    Get the current datetime in the applications configured timezone.
+    """
+    from datetime import datetime
+    return datetime.now(TIMEZONE)
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
