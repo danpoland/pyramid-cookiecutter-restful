@@ -6,7 +6,8 @@ pyramid-cookiecutter-restful
         :target: https://travis-ci.org/danpoland/pyramid-cookiecutter-restful
         :alt: Master Travis CI Status
 
-A Cookiecutter (project template) for creating a Pyramid project using SQLAlchemy for an ORM, URL dispatch for routing, and pyramid-restful for create RESTful APIs.
+A Cookiecutter (project template) for creating a Pyramid project using SQLAlchemy for an ORM, URL dispatch for routing, and pyramid-restful-framewor for creating RESTful APIs.
+
 Uses Docker for local development.
 
 Requirements
