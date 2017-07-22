@@ -4,10 +4,7 @@ from sqlalchemy.orm import configure_mappers
 
 import zope.sqlalchemy
 
-from
-
-{{cookiecutter.repo_name}}
-import settings
+from {{cookiecutter.repo_name}} import settings
 
 # import or define all models here to ensure they are attached to the
 # Base.metadata prior to any initialization routines
@@ -16,13 +13,6 @@ from .mymodel import MyModel  # flake8: noqa
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup
 configure_mappers()
-
-
-def get_session():
-    """
-    For when you need a db session outside the context of a request.
-    """
-    return get_session_factory(get_engine())()
 
 
 def get_engine(configs=None, **kwargs):
